@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>السلة - أكل زمان</title>
+  <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+  <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Kufi+Arabic:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f48c25',
+            'background-light': '#f8f7f5',
+            'background-dark': '#221910',
+            'content-light': '#1c140d',
+            'content-dark': '#f8f7f5',
+            'subtle-light': '#f4ede7',
+            'subtle-dark': '#3a2d1f',
+            'contrast-light': '#9c7349',
+            'contrast-dark': '#a38b73',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', '"Noto Kufi Arabic"', 'sans-serif'],
+          },
+          borderRadius: {
+            DEFAULT: '0.5rem',
+            lg: '1rem',
+            xl: '1.5rem',
+            full: '9999px',
+          },
+        },
+      }
+    }
+  </script>
+  <style>
+    .comic-button {
+      position: relative;
+      border: 2px solid #1c140d;
+      box-shadow: 4px 4px 0 #1c140d;
+      transition: all 0.2s;
+    }
+    .comic-button:active {
+      box-shadow: 0 0 0 #1c140d;
+      transform: translate(4px, 4px);
+    }
+    .comic-card {
+      border: 2px solid #1c140d;
+      box-shadow: 5px 5px 0 #1c140d;
+    }
+    .dark .comic-card {
+      border-color: #f8f7f5;
+      box-shadow: 5px 5px 0 #f8f7f5;
+    }
+    .dark .comic-button {
+      border-color: #f8f7f5;
+      box-shadow: 4px 4px 0 #f8f7f5;
+    }
+    .dark .comic-button:active {
+      box-shadow: 0 0 0 #f8f7f5;
+    }
+    .mobile-menu {
+      display: none;
+    }
+    .mobile-menu.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-content-light dark:text-content-dark">
+  <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+    <header class="border-b-2 border-content-light bg-background-light px-6 py-3 dark:border-content-dark dark:bg-background-dark md:px-10">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <svg class="h-10 w-10 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.79,2.62,17,10l-1.06,3.17-2.12-6.35L11.5,12.5,9,5l-2.5,7.5-1.5-4.5L3,18H21l-1.79-5.38L15,5l1.06-3.17Z"></path>
+          </svg>
+          <h2 class="text-2xl font-black tracking-tighter text-content-light dark:text-content-dark">أكل زمان</h2>
+        </div>
+        <nav class="hidden items-center gap-8 md:flex">
+          <a class="text-lg font-bold hover:text-primary" href="index.html">الرئيسية</a>
+          <a class="text-lg font-bold hover:text-primary" href="menu.html">الساندويتشات</a>
+          <a class="text-lg font-bold hover:text-primary" href="meals.html">الوجبات</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <a href="cart.html" class="comic-button hidden h-10 min-w-[84px] items-center justify-center overflow-hidden rounded-lg bg-subtle-light px-4 text-sm font-bold dark:bg-subtle-dark sm:flex cart-count">
+            السلة (0)
+          </a>
+          <button id="hamburger" class="comic-button h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-subtle-light p-0 text-sm font-bold dark:bg-subtle-dark md:hidden">
+            <svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+              <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,88H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" class="mobile-menu mt-4 hidden flex-col gap-3 pb-4 md:hidden">
+        <a class="text-lg font-bold hover:text-primary" href="index.html">الرئيسية</a>
+        <a class="text-lg font-bold hover:text-primary" href="menu.html">القائمة</a>
+        <a class="text-lg font-bold hover:text-primary" href="cart.html">السلة</a>
+      </nav>
+    </header>
+
+    <main class="px-6 py-12 md:px-10">
+      <div class="mx-auto max-w-3xl">
+        <h1 class="text-4xl font-black text-center mb-8">سلة المشتريات</h1>
+        <div id="cart-items" class="comic-card rounded-xl bg-background-light p-4 dark:bg-background-dark">
+          <!-- سيتم ملؤه ديناميكيًا -->
+        </div>
+
+        <form id="checkout-form" class="hidden mt-8 comic-card rounded-xl bg-background-light p-6 dark:bg-background-dark">
+          <h2 class="text-2xl font-bold mb-4">إتمام الطلب</h2>
+          <div class="mb-4">
+            <label class="block mb-2 font-bold">الاسم</label>
+            <input type="text" id="name" class="w-full p-3 border-2 border-content-light/30 rounded-lg bg-subtle-light dark:bg-subtle-dark dark:border-content-dark/30" required>
+          </div>
+          <div class="mb-4">
+            <label class="block mb-2 font-bold">رقم الهاتف</label>
+            <input type="tel" id="phone" class="w-full p-3 border-2 border-content-light/30 rounded-lg bg-subtle-light dark:bg-subtle-dark dark:border-content-dark/30" required>
+          </div>
+          <div class="mb-6">
+            <label class="block mb-2 font-bold">العنوان</label>
+            <textarea id="address" rows="3" class="w-full p-3 border-2 border-content-light/30 rounded-lg bg-subtle-light dark:bg-subtle-dark dark:border-content-dark/30" required></textarea>
+          </div>
+          <div class="mb-6">
+            <label class="block mb-2 font-bold">الملاحظات</label>
+            <textarea id="notes" rows="3" class="w-full p-3 border-2 border-content-light/30 rounded-lg bg-subtle-light dark:bg-subtle-dark dark:border-content-dark/30" required></textarea>
+          </div>
+          <button type="submit" class="comic-button w-full h-14 rounded-lg bg-primary font-bold text-content-dark">إرسال الطلب عبر واتساب</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobile-nav').classList.toggle('active');
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
